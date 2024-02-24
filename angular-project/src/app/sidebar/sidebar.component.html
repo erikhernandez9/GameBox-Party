@@ -1,0 +1,63 @@
+<div class="offcanvas offcanvas-start bg-blur" tabindex="-3" id="offcanvasExample"
+    aria-labelledby="offcanvasExampleLabel">
+    <div class="offcanvas-header d-flex flex-column align-items-center justify-content-center">
+        <h5 class="offcanvas-title text-light text-font text-uppercase fs-2" id="offcanvasExampleLabel">Menu
+        </h5>
+        <button type="button" class="btn-close visible position-absolute align-self-end" data-bs-dismiss="offcanvas"
+            aria-label="Close"></button>
+    </div>
+    <div class="offcanvas-body d-flex flex-column mx-1 h-100">
+        <div class="text-start">
+            <a routerLink="/home" class="text-light text-font text-uppercase text-decoration-none fs-5"><i
+                    class="bi bi-house-door-fill "></i> Home</a>
+            <hr class="border-gradient opacity-100">
+            <div *ngIf="this.isUser()">
+                <a routerLink="/room" class="text-light text-font text-uppercase text-decoration-none fs-5">
+                    <i class="bi bi-person-video3"></i> Host
+                    a room</a>
+                <hr class="border-gradient opacity-100">
+                <a routerLink="/proposal-manager" class="text-light text-font text-uppercase text-decoration-none fs-5"><i
+                        class="bi bi-controller"></i> Manage
+                    proposals</a>
+            </div>
+            <div *ngIf="this.isAdmin()">
+                <hr class="border-gradient opacity-100">
+                <div class="d-flex align-items-center">
+                    <a routerLink="/activity-manager" class="text-light text-font text-uppercase text-decoration-none fs-5 me-auto"><i
+                            class="bi bi-box-seam"></i> Manage activities </a>
+                    <h5><span class="badge bg-orange fw-normal mx-3 text-uppercase text-font">Admin</span></h5>
+                </div>
+                <hr class="border-gradient opacity-100">
+                <div class="d-flex align-items-center">
+                    <a routerLink="/user-manager" class="text-light text-font text-uppercase text-decoration-none fs-5 me-auto"><i
+                            class="bi bi-people-fill"></i> Manage users </a>
+                    <h5><span class="badge bg-orange fw-normal  mx-3 text-uppercase text-font">Admin</span></h5>
+                </div>
+            </div>
+        </div>
+        <div class="mt-auto text-start">
+            <hr class="border-gradient opacity-100">
+            <div *ngIf="this.isUser()" class="btn-group dropup">
+                <button type="button"
+                    class="btn p-1 dropdown-toggle text-font text-uppercase text-start text-light fs-3 align-items-center"
+                    data-bs-toggle="dropdown" aria-expanded="false">
+                    <i class="bi bi-person-circle"></i> {{ user.username }}
+                </button>
+                <ul class="dropdown-menu">
+                    <li class="mb-2"><a routerLink="/account-manager" class="dropdown-item"><i class="bi bi-pencil-square"></i> Edit
+                            profile</a>
+                    </li>
+                    <li><a class="dropdown-item bg-danger text-light" href="#" (click)="logOut()"><i
+                                class="bi bi-box-arrow-left"></i> Log
+                            out</a>
+                    </li>
+                </ul>
+            </div>
+            <div *ngIf="!this.isUser()" class="text-center">
+                <button routerLink="/sign-in" type="submit" class="btn btn-gradient btn-lg w-100"><span
+                        class="text-font text-light text-uppercase fw-lighter fs-3">Sign In <i
+                            class="bi bi-box-arrow-in-right"></i></span></button>
+            </div>
+        </div>
+    </div>
+</div>

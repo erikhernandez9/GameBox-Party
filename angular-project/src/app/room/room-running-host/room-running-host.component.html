@@ -1,0 +1,29 @@
+<div class="d-flex h-100 text-center text-bg-body border border-5 border-gradient">
+    <div class="cover-container d-flex w-100 h-100 p-3 mx-auto flex-column">
+        <app-header class="mb-auto"></app-header>
+
+        <app-sidebar></app-sidebar>
+
+        <main class="px-3 rounded-3 shadow bg-body bg-opacity-10 p-4 h-75 d-flex flex-column align-items-center">
+            <div *ngIf="!this.isFinished" class="d-flex flex-column w-100 my-auto">
+                <h3 class="text-font text-pink text-uppercase mb-5 ">Votes: {{this.countVotes}} / {{this.participants}}
+                </h3>
+                <div *ngIf="this.activity.image == null">
+                    <h1 class="text-font text-body text-uppercase">{{this.activity.name }}</h1>
+                    <h3 class="text-font text-body text-uppercase">{{this.activity.description}}</h3>
+                </div>
+                <div *ngIf="this.activity.image != null" class="mt-auto">
+                    <img src="{{ apiUrl }}/public/{{ this.activity.image }}" class="img-fluid w-75 h-75 rounded-4">
+                </div>
+            </div>
+
+            <div *ngIf="this.isFinished" class="d-flex flex-column w-75 my-auto">
+                <h1 class="text-font text-body text-uppercase">The room is finished</h1>
+                <button (click)="showStats()"
+                    class="btn btn-lg btn-gradient fs-2 text-light text-uppercase text-font"><i
+                        class="bi bi-list-ol"></i>Show stasts</button>
+            </div>
+        </main>
+        <app-footer class="mt-auto" [footerMessage]="'footerMessage'"></app-footer>
+    </div>
+</div>

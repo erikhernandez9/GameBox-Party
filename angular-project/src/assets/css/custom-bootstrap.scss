@@ -1,0 +1,22 @@
+@import "../../../node_modules//bootstrap/scss/functions";
+@import "../../../node_modules/bootstrap/scss/variables";
+@import "../../../node_modules/bootstrap/scss/variables-dark";
+
+$dark: #161616;
+
+$theme-colors: (
+    "primary": $primary,
+    "secondary": $secondary,
+    "success": $success,
+    "info": $info,
+    "warning": $warning,
+    "danger": $danger,
+    "light": $light,
+    "dark": $dark,
+    "skyblue": $cyan-500,
+    "orange": $orange-500,
+    "purple": $indigo-500,
+    "pink": $pink-500
+);
+
+@import "../../../node_modules/bootstrap/scss/bootstrap";

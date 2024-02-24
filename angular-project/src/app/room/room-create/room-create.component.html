@@ -1,0 +1,124 @@
+<div class="d-flex h-100 text-center text-bg-body border border-5 border-gradient">
+    <div class="cover-container d-flex w-100 h-100 p-3 mx-auto flex-column">
+        <app-header class="mb-auto"></app-header>
+
+        <app-sidebar></app-sidebar>
+
+        <main class="px-3 rounded-3 shadow bg-body bg-opacity-10 p-4 d-flex flex-column align-items-center">
+            <h2 class="text-font text-body text-uppercase mb-auto">Create a room</h2>
+            <form [formGroup]="roomCreateForm" class="w-75 px-2 mb-auto overflow-auto mt-3">
+                <div *ngIf="errorStatus" class="alert alert-danger" role="alert">
+                    {{errorMessage}}
+                </div>
+                <div *ngIf="success" class="alert alert-success" role="alert">
+                    <div>{{successMessage}}</div>
+                    <div class="spinner-border spinner-border-sm" role="status">
+                        <span class="visually-hidden">Loading...</span>
+                    </div>
+                </div>
+                <div class="mb-3">
+                    <button [class.btn-gradient]="this.selectedProposalName==''"
+                        [class.bg-success]="this.selectedProposalName!=''"
+                        class="btn btn-lg text-light text-uppercase text-font fs-4 w-100" data-bs-toggle="modal"
+                        data-bs-target="#proposalsModal"><i class="bi bi-check2-square"></i>
+                        <span *ngIf="this.selectedProposalName==''">Select Proposal</span>
+                        <span *ngIf="this.selectedProposalName!=''">Selected: {{this.selectedProposalName}}</span>
+                    </button>
+                </div>
+
+                <div class="mb-3">
+                    <input formControlName="name" type="text" class="form-control border border-3 p-2" name="formId1"
+                        id="formId1" placeholder="Room name">
+                </div>
+
+                <div class="d-flex justify-content-center">
+                    <button (click)="createRoom(roomCreateForm.value)"
+                        class="btn btn-gradient col-md-6 btn-lg mx-2"><span
+                            class="text-font text-light text-uppercase fw-lighter"><i class="bi bi-download"></i>
+                            Create</span></button>
+                </div>
+            </form>
+
+            <div class="modal fade" id="proposalsModal" tabindex="-1" aria-labelledby="exampleModalLabel"
+                aria-hidden="true">
+                <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h1 class="modal-title fs-4 text-font text-uppercase" id="exampleModalLabel">Select a
+                                Proposal</h1>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                        </div>
+                        <div class="modal-body">
+                            <div class="mb-3 text-start w-100 h-25 px-2">
+                                <div class="input-group input-group-lg">
+                                    <span class="input-group-text btn-gradient" id="basic-addon1"><i
+                                            class="bi bi-search"></i></span>
+                                    <input [(ngModel)]="filter" (ngModelChange)="updateFilteredProposals()" type="text"
+                                        class="form-control" placeholder="Search by name..." aria-label="Search by name"
+                                        aria-describedby="basic-addon1">
+                                </div>
+                                <div>
+                                    <button class="btn btn-gradient btn-sm mt-2" type="button" data-bs-toggle="collapse"
+                                        data-bs-target="#collapseExample" aria-expanded="false"
+                                        aria-controls="collapseExample">
+                                        <i class="bi bi-filter-right"></i> Filters
+                                    </button>
+
+                                    <div class="collapse mx-2 mt-2" id="collapseExample">
+                                        <div class="form-check form-check-inline">
+                                            <input class="form-check-input" type="radio" name="inlineRadioOptions"
+                                                id="inlineRadio1" value="images" (change)="onOptionChange('mine')"
+                                                [checked]="selectedOption === 'mine'">
+                                            <label class="form-check-label text-font text-uppercase text-skyblue"
+                                                for="inlineRadio1">Mine</label>
+                                        </div>
+                                        <div class="form-check form-check-inline">
+                                            <input class="form-check-input" type="radio" name="inlineRadioOptions"
+                                                id="inlineRadio2" value="text" (change)="onOptionChange('all')"
+                                                [checked]="selectedOption === 'all'">
+                                            <label class="form-check-label text-font text-uppercase text-purple"
+                                                for="inlineRadio2">All</label>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="overflow-auto w-100 h-100 p-2 rounded-4 bg-body bg-gradient">
+                                <div class="row masonry g-3">
+                                    <div *ngFor="let proposal of filteredProposals" class="col-12 col-md-6">
+                                        <div (click)="toggleSelectedActivity(proposal._id, proposal.name)"
+                                            [class.btn-gradient]="isActive && proposal._id === selectedCard"
+                                            *ngIf="proposal.name.toLowerCase().includes(filter)" class="card"
+                                            style="width: 100%;">
+                                            <div class="card-body">
+                                                <h5 class="card-title">{{ proposal.name }}</h5>
+                                                <p class="card-text">{{ proposal.description }}</p>
+                                                <div style="font-size: 0.7rem;">
+                                                    <label class="text-secondary">Created by: <span
+                                                            class="text-skyblue">{{proposal.createdByUsername}}</span></label>
+                                                    <label class="text-secondary">Created at: <span class="text-pink">{{
+                                                            proposal.createdAt | date: 'MM/dd/yyyy'
+                                                            }}</span></label>
+                                                    <label class="text-secondary">Updated at: <span
+                                                            class="text-orange">{{
+                                                            proposal.updatedAt | date: 'MM/dd/yyyy'
+                                                            }}</span></label>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-gradient text-font text-uppercase"
+                                data-bs-dismiss="modal"><i class="bi bi-check-square"></i> Ok</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </main>
+        <app-footer class="mt-auto" [footerMessage]="footerMessage"></app-footer>
+    </div>
+</div>

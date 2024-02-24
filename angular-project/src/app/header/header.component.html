@@ -1,0 +1,20 @@
+<header class="mt-md-2 d-flex flex-column align-items-center justify-content-center">
+    <div class="position-absolute align-self-start">
+        <a href="" data-bs-toggle="offcanvas" data-bs-target="#offcanvasExample" class="text-skyblue"><i
+                class="bi bi-list fs-2"></i></a>
+    </div>
+    <div>
+        <h1 class="title text-font text-gradient mb-0 text-uppercase">gamebox <i class="bi bi-joystick"></i>
+            party
+        </h1>
+    </div>
+    <div class="position-absolute align-self-end">
+        <div class="form-check form-switch">
+            <label for="flexSwitchCheckDefault" class="text-orange">
+                <i *ngIf="getCurrentTheme() == 'dark'" class="bi bi-moon-stars-fill fs-4"></i>
+                <i *ngIf="getCurrentTheme() == 'light'" class="bi bi-brightness-high-fill fs-3"></i>
+            </label>
+            <input (click)="toggleTheme()" class="form-check-input d-none" type="checkbox" role="switch" id="flexSwitchCheckDefault">
+        </div>
+    </div>
+</header>

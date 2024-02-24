@@ -1,0 +1,98 @@
+<div class="d-flex h-100 text-center text-bg-body border border-5 border-gradient">
+    <div class="cover-container d-flex w-100 h-100 p-3 mx-auto flex-column">
+        <app-header class="mb-auto"></app-header>
+
+        <app-sidebar></app-sidebar>
+
+        <main class="px-3 rounded-3 shadow bg-body bg-opacity-10 p-4 d-flex flex-column align-items-center">
+            <h2 class="text-font text-body text-uppercase mb-auto">Update proposal</h2>
+            <form [formGroup]="proposalUpdateForm" class="w-75 px-2 mb-auto overflow-auto mt-3">
+                <div *ngIf="errorStatus" class="alert alert-danger" role="alert">
+                    {{errorMessage}}
+                </div>
+                <div *ngIf="success" class="alert alert-success" role="alert">
+                    <div>{{successMessage}}</div>
+                    <div class="spinner-border spinner-border-sm" role="status">
+                        <span class="visually-hidden">Loading...</span>
+                    </div>
+                </div>
+                <div class="mb-3">
+                    <input formControlName="name" type="text" class="form-control border border-3 p-2" name="formId1"
+                        id="formId1" placeholder="Title">
+                </div>
+                <div class="mb-3">
+                    <input formControlName="description" type="text" class="form-control border border-3 p-2"
+                        name="formId1" id="formId1" placeholder="Description">
+                </div>
+
+                <div class="mb-3 border border-2 rounded-4 p-2 bg-gradient">
+                    <div class="d-flex align-items-center mb-2">
+                        <h5 class="text-start fw-bold me-auto mb-0">Proposal Activities: <span
+                                class="text-pink">{{this.proposalActivities.length}}</span></h5>
+
+                        <button class="btn btn-sm btn-gradient rounded-4 text-uppercase text-font m-0"
+                            data-bs-toggle="modal" data-bs-target="#activitiesModal"><i class="bi bi-pencil-square"></i>
+                            Add or delete</button>
+
+                    </div>
+
+                    <div *ngIf="this.unsavedChanges" class="text-start mb-2">
+                        <h4 class="p-0 m-0 me-auto"><span
+                                class="badge bg-pink rounded-4 text-font text-uppercase fw-normal">Save to apply
+                                changes</span></h4>
+                    </div>
+
+                    <div class="overflow-auto w-100 h-100 bg-body bg-opacity-50 rounded-4 p-2">
+                        <div class="flex-nowrap row p-2 align-items-center">
+                            <div *ngFor="let activity of proposalActivities" class="col-12 col-sm-6">
+                                <div class="card" style="width: 100%;">
+                                    <div *ngIf="activity.image != null" class="image-container">
+                                        <img src="{{ apiUrl }}/public/{{ activity.image }}" class="card-img-top">
+                                    </div>
+                                    <div class="card-body">
+                                        <h5 class="card-title">{{ activity.name }}</h5>
+                                        <p class="card-text">{{ activity.description }}</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="d-flex justify-content-center">
+                    <button (click)="deleteProposalById()" class="btn btn-danger col-md-4 btn-lg mx-2"><span
+                            class="text-font text-light text-uppercase fw-lighter"><i class="bi bi-trash3"></i>
+                            Delete</span></button>
+                    <button (click)="updateProposalById(proposalUpdateForm.value)"
+                        class="btn btn-gradient col-md-6 btn-lg mx-2"><span
+                            class="text-font text-light text-uppercase fw-lighter"><i class="bi bi-download"></i>
+                            Save</span></button>
+                </div>
+            </form>
+
+            <div class="modal fade" id="activitiesModal" tabindex="-1" aria-labelledby="exampleModalLabel"
+                aria-hidden="true">
+                <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h1 class="modal-title fs-4 text-font text-uppercase" id="exampleModalLabel">Add
+                                Activities</h1>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                        </div>
+                        <div class="modal-body h-25">
+
+                            <app-activity-index [proposalViewConfig]="true"
+                                [proposalActivities]="this.proposal.activities"
+                                (selectedActivitiesChange)="recieveSelectedActivities($event)"></app-activity-index>
+
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-gradient text-font text-uppercase"
+                                data-bs-dismiss="modal"><i class="bi bi-check-square"></i> Ok</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </main>
+        <app-footer class="mt-auto" [footerMessage]="footerMessage"></app-footer>
+    </div>
+</div>

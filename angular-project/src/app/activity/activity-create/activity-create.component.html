@@ -1,0 +1,58 @@
+<div class="d-flex h-100 text-center text-bg-body border border-5 border-gradient">
+    <div class="cover-container d-flex w-100 h-100 p-3 mx-auto flex-column">
+        <app-header class="mb-auto"></app-header>
+
+        <app-sidebar></app-sidebar>
+
+        <main class="px-3 rounded-3 shadow bg-body bg-opacity-10 p-4 d-flex flex-column align-items-center">
+            <h2 class="text-font text-body text-uppercase mb-auto">Create Activity</h2>
+            <form [formGroup]="activityCreateForm" (ngSubmit)="onCreateActivity(activityCreateForm.value)"
+                class="w-75 px-2 mb-auto overflow-auto mt-3">
+                <div *ngIf="errorStatus" class="alert alert-danger" role="alert">
+                    {{errorMessage}}
+                </div>
+                <div *ngIf="success" class="alert alert-success" role="alert">
+                    <div>Activity created! Redirecting to activity manager...</div>
+                    <div class="spinner-border spinner-border-sm" role="status">
+                        <span class="visually-hidden">Loading...</span>
+                    </div>
+                </div>
+                <div *ngIf="imageUrl !== ''"
+                    class="d-flex flex-column justify-content-center mb-3 bg-gradient rounded-top-4">
+                    <label for="update-img" class="image-container position-relative d-flex align-items-center">
+                        <div class="container position-absolute fs-1 d-flex flex-column align-items-center d-none">
+                            <i class="bi bi-pencil-square diplay-6"></i>
+                            <p class="fs-4"> Change image</p>
+                        </div>
+                        <img src="{{imageUrl}}" class="img-fluid" alt="">
+                        <input (change)="onFileChange($event)" type="file" class="d-none" id="update-img"
+                            accept=".jpg, .jpeg, .png">
+                    </label>
+                    <button type="button" (click)="onDeleteImage()" class="btn-delete-img btn btn-danger rounded-bottom-4 text-font text-uppercase p-1"><i
+                            class="bi bi-trash3"></i> Delete Image</button>
+                </div>
+                <div *ngIf="imageUrl === ''" class="d-flex flex-column justify-content-center mb-3">
+                    <label class="btn btn-gradient btn text-font text-light text-uppercase fs-4" for="upload-image">
+                        <i class="bi bi-upload"></i> Upload image (Optional)
+                        <input (change)="onFileChange($event)" type="file" class="d-none" id="upload-image"
+                            accept=".jpg, .jpeg, .png">
+                    </label>
+                </div>
+                <div class="mb-3">
+                    <input formControlName="name" type="text" class="form-control border border-3 p-2" name="formId1"
+                        id="formId1" placeholder="Title">
+                </div>
+                <div class="mb-3">
+                    <input formControlName="description" type="text" class="form-control border border-3 p-2"
+                        name="formId1" id="formId1" placeholder="Description">
+                </div>
+                <div class="d-flex justify-content-center">
+                    <button type="submit" class="btn btn-gradient col-md-6 btn-lg mx-2"><span
+                            class="text-font text-light text-uppercase fw-lighter"><i class="bi bi-download"></i>
+                            Create</span></button>
+                </div>
+            </form>
+        </main>
+        <app-footer class="mt-auto" [footerMessage]="footerMessage"></app-footer>
+    </div>
+</div>

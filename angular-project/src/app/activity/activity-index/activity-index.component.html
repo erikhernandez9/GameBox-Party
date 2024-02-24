@@ -1,0 +1,52 @@
+<div class="mb-3 text-start w-100 px-2">
+    <div class="input-group input-group-lg">
+        <span class="input-group-text btn-gradient" id="basic-addon1"><i class="bi bi-search"></i></span>
+        <input [(ngModel)]="filter" (ngModelChange)="updateFilteredActivities()" type="text" class="form-control"
+            placeholder="Search by name..." aria-label="Search by name" aria-describedby="basic-addon1">
+    </div>
+    <button class="btn btn-gradient btn-sm mt-2" type="button" data-bs-toggle="collapse"
+        data-bs-target="#collapseExample" aria-expanded="false" aria-controls="collapseExample">
+        <i class="bi bi-filter-right"></i> Filters
+    </button>
+
+    <div class="collapse mx-2 mt-2" id="collapseExample">
+        <div class="form-check form-check-inline">
+            <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio1" value="images"
+                (change)="onOptionChange('images')" [checked]="selectedOption === 'images'">
+            <label class="form-check-label text-font text-uppercase text-skyblue" for="inlineRadio1">Images</label>
+        </div>
+        <div class="form-check form-check-inline">
+            <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio2" value="text"
+                (change)="onOptionChange('text')" [checked]="selectedOption === 'text'">
+            <label class="form-check-label text-font text-uppercase text-purple" for="inlineRadio2">Text</label>
+        </div>
+        <div class="form-check form-check-inline">
+            <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio3" value="both"
+                (change)="onOptionChange('both')" [checked]="selectedOption === 'both'">
+            <label class="form-check-label text-font text-uppercase text-pink" for="inlineRadio3">Both</label>
+        </div>
+    </div>
+</div>
+
+<div class="overflow-auto w-100 h-100 p-2 rounded-4 bg-body bg-gradient">
+    <div class="row masonry g-3">
+        <div *ngFor="let activity of filteredActivities"
+            [class]="proposalViewConfig ? 'col-12 col-md-6' : 'col-12 col-sm-6 col-md-4'">
+            <div 
+            [routerLink]="proposalViewConfig ? null : ['/activity-manager/update', activity._id]"  
+            (click)="toggleSelectedActivity(activity._id)" 
+            [class.btn-gradient]="isActivitySelected(activity._id)"
+            *ngIf="activity.name.toLowerCase().includes(filter)" 
+            class="card" style="width: 100%;" >
+                <div *ngIf="activity.image != null" class="image-container" 
+                    [style]="proposalViewConfig ? 'height: 120px;' : null">
+                    <img src="{{ apiUrl }}/public/{{ activity.image }}" class="card-img-top">
+                </div>
+                <div class="card-body">
+                    <h5 class="card-title">{{ activity.name }}</h5>
+                    <p class="card-text">{{ activity.description }}</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

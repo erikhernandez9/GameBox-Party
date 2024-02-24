@@ -1,0 +1,5 @@
+<footer class="text-body">
+    <h4 *ngIf="!this.isUser()" class="text-gradient m-3 fw-bolder"><a routerLink="/sign-in"
+            class="link-opacity-50-hover">Click here to host your own room!</a></h4>
+    <h4 *ngIf="this.isUser()" class="text-gradient m-3 fw-bolder"><p class="link-opacity-50-hover">{{footerMessage}}</p></h4>
+</footer>

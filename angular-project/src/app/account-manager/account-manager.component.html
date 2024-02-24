@@ -1,0 +1,55 @@
+<div class="d-flex h-100 text-center text-bg-body border border-5 border-gradient">
+    <div class="cover-container d-flex w-100 h-100 p-3 mx-auto flex-column">
+
+        <app-header class="mb-auto"></app-header>
+
+        <app-sidebar></app-sidebar>
+
+        <main class="px-3 rounded-3 shadow bg-body bg-opacity-10">
+            <div class="m-4">
+                <h2 class="text-font text-body text-uppercase">Edit Profile</h2>
+                <form [formGroup]="accountManagerForm" class="mx-4 my-4">
+                    <div *ngIf="errorStatus" class="alert alert-danger" role="alert">
+                        {{errorMessage}}
+                    </div>
+                    <div *ngIf="success" class="alert alert-success" role="alert">
+                        <div>{{successMessage}}</div>
+                        <div *ngIf="deleted" class="spinner-border spinner-border-sm" role="status">
+                            <span class="visually-hidden">Loading...</span>
+                        </div>
+                    </div>
+                    <div class="mb-3">
+                        <input formControlName="username" type="text" class="form-control border border-3 p-2"
+                            name="formId1" placeholder="Username">
+                    </div>
+                    <div class="mb-3">
+                        <input formControlName="email" type="text" class="form-control border border-3 p-2"
+                            name="formId1" placeholder="Email">
+                    </div>
+
+                    <div class="input-group mb-3">
+                        <input [type]="getPasswordVisibility() ? 'text' : 'password'" (input)="onInput($event)"
+                            formControlName="password" type="password" class="form-control border border-3 p-2"
+                            name="formId1" placeholder="Password">
+                        <span (click)="togglePasswordVisibility()" class="input-group-text" id="basic-addon2">
+                            <i *ngIf="!passwordVisible" class="bi bi-eye"></i>
+                            <i *ngIf="passwordVisible" class="bi bi-eye-slash"></i>
+                        </span>
+                    </div>
+                    <div class="d-flex justify-content-center">
+                        <button (click)="deleteAccount(accountManagerForm.value)" class="btn btn-danger col-md-4 btn-lg mx-2"><span
+                                class="text-font text-light text-uppercase fw-lighter"><i class="bi bi-trash3"></i>
+                                Delete</span></button>
+                        <button (click)="updateAccount(accountManagerForm.value)"
+                            class="btn btn-gradient col-md-6 btn-lg mx-2"><span
+                                class="text-font text-light text-uppercase fw-lighter"><i class="bi bi-download"></i>
+                                Save</span></button>
+                    </div>
+                </form>
+            </div>
+        </main>
+
+        <app-footer class="mt-auto" [footerMessage]="footerMessage"></app-footer>
+
+    </div>
+</div>

@@ -1,0 +1,22 @@
+<div class="d-flex h-100 text-center text-bg-body border border-5 border-gradient">
+    <div class="cover-container d-flex w-100 h-100 p-3 mx-auto flex-column">
+        <app-header class="mb-auto"></app-header>
+
+        <app-sidebar></app-sidebar>
+
+        <main class="px-3 rounded-3 shadow bg-body bg-opacity-10 p-4 h-75 d-flex flex-column align-items-center">
+            <h2 class="text-font text-body text-uppercase mb-3">Manage Activities</h2>
+
+            <app-activity-index class="h-75 d-flex flex-column align-items-center w-100"></app-activity-index>
+
+            <div class="mt-3 text-center w-100 px-2">
+                <button routerLink="/activity-manager/create"
+                    class="btn btn-gradient btn-lg text-font text-light text-uppercase fs-3">
+                    <i class="bi bi-plus-square"></i> Create Activity
+                </button>
+            </div>
+        </main>
+
+        <app-footer class="mt-auto" [footerMessage]="footerMessage"></app-footer>
+    </div>
+</div>

@@ -1,0 +1,28 @@
+<div class="d-flex h-100 text-center text-bg-body border border-5 border-gradient">
+    <div class="cover-container d-flex w-100 h-100 p-3 mx-auto flex-column">
+        <app-header class="mb-auto"></app-header>
+
+        <app-sidebar></app-sidebar>
+
+        <main class="px-3 rounded-3 shadow bg-body bg-opacity-10 p-4 h-75 d-flex flex-column align-items-center">
+
+            <div *ngIf="!vote" class="d-flex flex-column w-100 my-auto">
+                <button (click)="voteRoom(1)"
+                    class="btn btn-lg btn-gradient fs-2 text-light text-uppercase text-font p-5 m-3"><i
+                        class="bi bi-hand-thumbs-up-fill"></i>like</button>
+                <button (click)="voteRoom(-1)"
+                    class="btn btn-lg btn-gradient fs-2 text-light text-uppercase text-font p-5 m-3"><i
+                        class="bi bi-hand-thumbs-down-fill"></i>dislike</button>
+            </div>
+            <div *ngIf="vote && !finished" class="my-auto">
+                <h1 class="text-font text-body text-uppercase">Waiting for the next activity...</h1>
+            </div>
+            <div *ngIf="finished" class="my-auto">
+                <button (click)="goHome()" class="btn btn-lg btn-gradient fs-2 text-light text-uppercase text-font"><i
+                        class="bi bi-house-door-fill"></i>Go home</button>
+            </div>
+
+        </main>
+        <app-footer class="mt-auto" [footerMessage]="'footerMessage'"></app-footer>
+    </div>
+</div>

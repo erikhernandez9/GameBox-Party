@@ -1,0 +1,46 @@
+# Directorios
+node_modules/
+dist/
+tmp/
+out-tsc/
+e2e/
+coverage/
+.pnpm/
+.pnpm-*
+.nyc_output/
+api-gameboxparty/uploads/
+
+
+# Archivos
+*.swp
+*.swo
+*.swn
+*.log
+*.log.*
+*.seed
+*.pid
+*.sublime-workspace
+.sass-cache/
+.env
+.env.test
+.env*.local
+._*
+.DS_Store
+Thumbs.db
+Thumbs.db:encryptable
+ehthumbs.db
+Desktop.ini
+$RECYCLE.BIN/
+
+# Específico de Angular
+.idea/
+*.iml
+*.iws
+*.ipr
+.vscode/
+.vscodeignore
+.idea
+.project
+.classpath
+
+# Dependiendo de tu editor/IDE, puedes agregar más reglas específicas.

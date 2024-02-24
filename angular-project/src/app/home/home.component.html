@@ -1,0 +1,34 @@
+<div class="d-flex h-100 text-center text-bg-body border border-5 border-gradient">
+    <div class="cover-container d-flex w-100 h-100 p-3 mx-auto flex-column">
+
+
+        <app-header class="mb-auto"></app-header>
+
+        <app-sidebar></app-sidebar>
+
+        <main class="px-3 rounded-3 shadow bg-body bg-opacity-10">
+            <div class="m-4">
+                <h2 class="text-font text-body text-uppercase">Join room</h2>
+                <div class="mx-4 my-4 ">
+                    <div class="form-floating mb-4">
+                        <input [(ngModel)]="this.code" type="text" class="form-control" id="floatingInputCode"
+                            placeholder="Room ID">
+                        <label for="floatingInput">Room Code</label>
+                    </div>
+                    <div *ngIf="!this.isUser()" class="form-floating mb-4">
+                        <input [(ngModel)]="this.name" type="text" class="form-control" id="floatingInput"
+                            placeholder="Your Name">
+                        <label for="floatingInput">Your Name</label>
+                    </div>
+                    <button type="submit" (click)="joinRoom()" class="btn btn-gradient btn-lg col-md-5"><span
+                            class="text-font text-light text-uppercase fw-lighter">Join <i
+                                class="bi bi-door-open"></i></span></button>
+
+                </div>
+            </div>
+        </main>
+
+        <app-footer class="mt-auto" [footerMessage]="footerMessage"></app-footer>
+
+    </div>
+</div>

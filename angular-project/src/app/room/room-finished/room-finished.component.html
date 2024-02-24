@@ -1,0 +1,65 @@
+<div class="d-flex h-100 text-center text-bg-body border border-5 border-gradient">
+    <div class="cover-container d-flex w-100 h-100 p-3 mx-auto flex-column">
+        <app-header class="mb-auto"></app-header>
+
+        <app-sidebar></app-sidebar>
+
+        <main class="container px-3 rounded-3 shadow bg-body bg-opacity-10 p-4 h-75 w-100">
+            <div class="row align-items-start">
+
+                <div class="col-6">
+                    <h1 class="text-font text-body text-uppercase w-100 text-start"><span
+                            class="badge bg-pink rounded-4">Most voted</span></h1>
+                    <div class="w-100 h-50 mb-1 p-2 bg-pink rounded-4">
+                        <div class="card">
+                            <div *ngIf="votes[0].activity.image != null" class="image-container">
+                                <img src="{{ apiUrl }}/public/{{ votes[0].activity.image }}" class="card-img-top">
+                            </div>
+                            <div>
+                                <div class="card-body">
+                                    <h5
+                                        class="w-100 bg-pink text-light text-font text-uppercase fw-normal rounded-3 text-start p-2">
+                                        Votes: {{ votes[0].votes }}</h5>
+                                    <div *ngIf="votes[0].activity.image == null">
+                                        <h5 class="card-title">{{ votes[0].activity.name }}</h5>
+                                        <p class="card-text">{{ votes[0].activity.description }}</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-6 ">
+                    <h2 class="text-font text-body text-uppercase w-100 text-start"><span
+                            class="badge bg-pink rounded-4 fw-normal">Ranking</span></h2>
+
+                    <div class="overflow-auto  p-2 rounded-4 bg-body bg-gradient" style="max-height: 50vh;">
+                        <div *ngFor="let vote of votes" class="col-12 mb-4 shadow">
+                            <div class="card" style="width: 100%;">
+                                <div *ngIf="vote.activity.image != null" class="image-container">
+                                    <img src="{{ apiUrl }}/public/{{ vote.activity.image }}" class="card-img-top">
+                                </div>
+                                <div>
+                                    <div class="card-body">
+                                        <h5
+                                            class="w-100 bg-pink text-light text-font text-uppercase fw-normal rounded-3 text-start p-2">
+                                            Votes: {{ vote.votes }}</h5>
+                                        <div *ngIf="vote.activity.image == null">
+                                            <h5 class="card-title">{{ vote.activity.name }}</h5>
+                                            <p class="card-text">{{ vote.activity.description }}</p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <button (click)="goHome()" class="btn btn-lg btn-gradient fs-2 text-light text-uppercase text-font mt-2"><i
+                    class="bi bi-house-door-fill"></i>Go home</button>
+        </main>
+        <app-footer class="mt-auto" [footerMessage]="'footerMessage'"></app-footer>
+    </div>
+</div>

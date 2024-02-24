@@ -1,0 +1,15 @@
+.visible {
+    display: block;
+}
+
+@media screen and (min-width: 540px) {
+    .visible {
+        display: none;
+    }
+}
+
+@media screen and (max-width: 540px) {
+    .offcanvas {
+        width: 100vh !important;
+    }
+}

@@ -1,0 +1,37 @@
+<div class="d-flex h-100 text-center text-bg-body border border-5 border-gradient">
+    <div class="cover-container d-flex w-100 h-100 p-3 mx-auto flex-column">
+        <app-header class="mb-auto"></app-header>
+
+        <app-sidebar></app-sidebar>
+
+        <main class="px-3 rounded-3 shadow bg-body bg-opacity-10 p-4 h-75 d-flex flex-column align-items-center">
+            <div class="mb-3">
+                <h1 class="text-font text-body text-uppercase">Welcome to "{{this.room.name}}"!</h1>
+            </div>
+            <div class="mb-3">
+                <h1 class="text-font text-light text-uppercase bg-pink bg-gradient shadow rounded-4 p-3 px-5 mb-3 fw-normal"
+                    style="font-size: 50px;">ID: {{this.room.roomId}}</h1>
+            </div>
+
+            <h3 class="w-100 px-2 text-font text-start text-uppercase">Participants: <span
+                    class="text-pink">{{this.room.participants.length}}</span></h3>
+            <div class="overflow-auto w-100 h-100 p-2 rounded-4 bg-body-secondary bg-gradient mb-3">
+                <div class="row masonry g-3">
+                    <div *ngFor="let participant of this.room.participants" class="col-12 col-sm-6 col-md-4">
+                        <div class="card" style="width: 100%;">
+                            <div class="card-body">
+                                <h5 class="card-title text-uppercase text-font">{{ participant }}</h5>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <button *ngIf="this.isHost()" [disabled]="this.room.participants.length == 0" (click) = "startRoom()"
+                class="btn btn-lg btn-gradient fs-2 text-light text-uppercase text-font"><i
+                    class="bi bi-rocket-takeoff"></i> Launch</button>
+
+        </main>
+        <app-footer class="mt-auto" [footerMessage]="footerMessage"></app-footer>
+    </div>
+</div>
